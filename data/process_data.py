@@ -6,14 +6,11 @@ from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     """
-      Function:
-      load data from two csv file and then merge them
-      Args:
-      messages_filepath (str): the file path of messages csv file
-      categories_filepath (str): the file path of categories csv file
-      Return:
-      df (DataFrame): A dataframe of messages and categories
-      """
+        Load csv files and return dataframe
+    :param messages_filepath: path csv file
+    :param categories_filepath: path csv file
+    :return: dataframe
+    """
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, how='inner', on='id')
@@ -22,13 +19,11 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
     """
-      Function:
-      clean the Dataframe df
-      Args:
-      df (DataFrame): A dataframe of messages and categories need to be cleaned
-      Return:
-      df (DataFrame): A cleaned dataframe of messages and categories
-      """
+        clean the Dataframe df
+    :param df: input dataframe
+    :return: df with data clean
+    """
+
 
     # Split `categories` into separate category columns.
     categories = df['categories'].str.split(';', expand=True)
@@ -61,12 +56,12 @@ def clean_data(df):
 
 def save_data(df, database_filename):
     """
-       Function:
-       Save the Dataframe df in a database
-       Args:
-       df (DataFrame): A dataframe of messages and categories
-       database_filename (str): The file name of the database
-       """
+        Save the Dataframe df in a database
+    :param df: A dataframe of messages and categories
+    :param database_filename: The file name of the database
+    :return:
+    """
+
     engine = create_engine(f"sqlite:///{database_filename}")
     df.to_sql('disaster_messages_tbl', engine, index=False)
 

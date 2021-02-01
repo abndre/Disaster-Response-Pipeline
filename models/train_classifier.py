@@ -12,11 +12,11 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV
 import pickle
-from sklearn.metrics import classification_report, confusion_matrix, precision_recall_fscore_support
-from termcolor import colored, cprint
+from sklearn.metrics import precision_recall_fscore_support
+from termcolor import colored
+import time
 
 
 nltk.download(['wordnet', 'punkt', 'stopwords'])
@@ -24,15 +24,13 @@ nltk.download(['wordnet', 'punkt', 'stopwords'])
 
 def load_data(database_filepath):
     """
-       Function:
-       load data from database
-       Args:
-       database_filepath: the path of the database
-       Return:
+    load data from database
+    :param database_filepath: the path of the database
+    :return:
        X (DataFrame) : Message features dataframe
        Y (DataFrame) : target dataframe
        category (list of str) : target labels list
-       """
+    """
     engine = create_engine(f"sqlite:///{database_filepath}")
     df = pd.read_sql_table('disaster_messages_tbl', engine)
     X = df['message']  # Message Column
@@ -46,11 +44,9 @@ def load_data(database_filepath):
 
 def tokenize(text):
     """
-    Function: split text into words and return the root form of the words
-    Args:
-      text(str): the message
-    Return:
-      lemm(list of str): a list of the root form of the message words
+        split text into words and return the root form of the words
+    :param text: the message
+    :return: a list of the root form of the message words
     """
 
     # Normalize text
@@ -71,10 +67,9 @@ def tokenize(text):
 
 def build_model():
     """
-     Function: build a model for classifing the disaster messages
-     Return:
-       cv(list of str): classification model
-     """
+    build a model for classifing the disaster messages
+    :return: classification model
+    """
 
     # Create a pipeline
     pipeline = Pipeline([
@@ -95,14 +90,14 @@ def build_model():
 
 def evaluate_model(model, X_test, y_test, category_names):
     """
-    inputs
-        model
-        X_test
-        y_test
-        category_names
-    output:
-        scores
+        Function to evaluate model
+    :param model: class model
+    :param X_test:
+    :param y_test:
+    :param category_names:
+    :output: scores
     """
+
     y_pred = model.predict(X_test)
 
     for i, col in enumerate(category_names):
@@ -129,10 +124,10 @@ def evaluate_model(model, X_test, y_test, category_names):
 
 def save_model(model, model_filepath):
     """
-    Function: Save a pickle file of the model
-    Args:
-    model: the classification model
-    model_filepath (str): the path of pickle file
+    Save a pickle file of the model
+    :param model: the classification model
+    :param model_filepath:
+    :return: the path of pickle file
     """
 
     with open(model_filepath, 'wb') as f:
@@ -143,7 +138,7 @@ def main():
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))
-        X, Y , category_names = load_data(database_filepath)
+        X, Y, category_names = load_data(database_filepath)
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
         
         print('Building model...')
@@ -169,5 +164,8 @@ def main():
 
 if __name__ == '__main__':
     print("START")
+    start_time = time.time()
     main()
-    print("END")
+    print("TIME PROCESSING:")
+    print("--- %s seconds ---" % (time.time() - start_time))
+    print("END WITH SUCCESS")

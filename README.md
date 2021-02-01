@@ -35,3 +35,13 @@ pip install -r requirements.txt
     `python app/run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+# Example Web
+
+## Intro page
+
+![intro](./image/intro.png)
+
+## Example output
+
+![return](./image/pesquisa.png)
