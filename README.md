@@ -1,6 +1,29 @@
 # Disaster Response Pipeline Project
 
+This is a projetct is a END-TO-END pipeline to creat a machine learning project
+with a front-end interface to used.
+
+
+
 ### Instructions:
+
+## 1. Virtualenv
+
+create virtualenv
+```
+python3 -m venv .env
+source .env/bin/activate
+```
+
+install requirements
+
+```
+pip install -r requirements.txt
+```
+
+
+## 2. Run projetct
+
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database

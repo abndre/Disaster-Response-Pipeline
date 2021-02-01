@@ -1,0 +1,7 @@
+pandas
+numpy
+nltk
+plotly
+sklearn
+sqlalchemy
+termcolor
