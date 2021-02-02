@@ -45,3 +45,43 @@ pip install -r requirements.txt
 ## Example output
 
 ![return](./image/pesquisa.png)
+
+# Overview Project
+
+This project have a follow paths: 
+
+**app**, with all files for 
+[flask](https://flask.palletsprojects.com/en/1.1.x/) web-server run.
+
+**data**. with all files for create a database used for ML process.
+
+**image** images for readme
+
+**models** with all files for create a ML model.
+
+This project have a follow files in home: 
+**requirements.txt** all lib for run this project
+
+
+``` 
+├── README.md
+├── app
+│   ├── __init__.py
+│   ├── run.py
+│   └── templates
+│       ├── go.html
+│       └── master.html
+├── data
+│   ├── __init__.py
+│   ├── disaster_categories.csv
+│   ├── disaster_messages.csv
+│   └── process_data.py
+├── image
+│   ├── intro.png
+│   └── pesquisa.png
+├── models
+│   ├── __init__.py
+│   ├── classifier.pkl
+│   └── train_classifier.py
+└── requirements.txt
+``` 
